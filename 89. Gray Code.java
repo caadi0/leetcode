@@ -8,11 +8,10 @@ public class Solution {
         }
         
         for(int i = 0; i < n; i++) {
-            int sum = 0;
             int diff = (int) Math.pow(2,i);
+            int number = (int) Math.pow(2,i+2);
             for(int j = diff; j < totalNumber; j++) {
-                int number = (int) Math.pow(2,i+2);
-                if((j - diff) % number < number/2) {
+                if((j - diff) % number < number/2) { 
                     list.set(j, list.get(j) + diff);
                 } 
             }
