@@ -7,39 +7,20 @@ public class Solution {
         int[] array = new int[nums.length - k + 1];
         deQ.add(0);
         
-        for(int i = 0; i < k; i++) {
-            if(nums[deQ.get(0)] <= nums[i]) {
-                deQ.clear();
-            } else {
-                if(nums[deQ.get(deQ.size() - 1)] <= nums[i]) {
-                    while(nums[deQ.get(deQ.size() - 1)] <= nums[i])
-                        deQ.remove(deQ.size() - 1);
-                }
-            }
-            deQ.add(i);
-        }
-        
-        array[0] = nums[deQ.get(0)];
-        
-        for(int i = k; i < nums.length; i++) {
+        for(int i = 0; i < nums.length; i++) {
             if(i - deQ.get(0) >= k)
                 deQ.remove(0);
             
             if(deQ.size() == 0) {
-                
-            } else if(nums[deQ.get(0)] <= nums[i]) {
-                deQ.clear();
+            
             } else {
-                if(nums[deQ.get(deQ.size() - 1)] >= nums[i]) {
-                    
-                } else {
-                    while(nums[deQ.get(deQ.size() - 1)] <= nums[i])
-                        deQ.remove(deQ.size() - 1);
-                    
-                }
+                while(deQ.size() > 0 && nums[deQ.get(deQ.size() - 1)] <= nums[i])
+                    deQ.remove(deQ.size() - 1);
             }
             deQ.add(i);
-            array[i-k+1] = nums[deQ.get(0)];
+            
+            if(i >= k-1)
+                array[i-k+1] = nums[deQ.get(0)];
         }
         return array;
     }
