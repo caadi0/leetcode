@@ -7,7 +7,7 @@ public class Solution {
         
         do {
             if (ans > (Integer.MAX_VALUE - x % 10) / 10)
-                return 0;
+                return 0;  
             ans = ans * 10 + x % 10;
             x /= 10;
         } while (x > 0);
