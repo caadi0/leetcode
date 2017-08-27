@@ -1,0 +1,52 @@
+public class Solution {
+    public int strStr(String haystack, String needle) {
+        int hlength = haystack.length();
+        int needleLength = needle.length();
+        
+        if(hlength == 0 && needleLength == 0)
+            return 0;
+        else if (hlength == 0)
+            return -1;
+        else if (needleLength == 0)
+            return 0;
+        else if (hlength < needleLength)
+            return -1;
+        
+        long[] hashArray = populateArray(hlength, needleLength, haystack);
+        
+        long needleHash = 0l;
+        for(int i = 0; i < needleLength; i++) {
+            needleHash = needleHash + needle.charAt(i) - 'A'; 
+        }
+        
+        for(int i = 0; i < hlength - needleLength + 1; i++) {
+            if(hashArray[i] == needleHash) {
+                int k = 0;
+                for(int j = i ; j < i + needleLength; j++) {
+                    if(needle.charAt(k++) != haystack.charAt(j)) {
+                        break;
+                    }
+                }
+                if(k == needleLength) {
+                    return i;
+                }
+            } else {
+                // Do Nothing
+            }
+        }
+        return -1;
+    }
+    
+    private long[] populateArray(int length, int needleLength, String haystack) {
+        long hash[] = new long[length - needleLength + 1];
+        
+        for(int i = 0; i < needleLength; i++) {
+            hash[0] = hash[0] + haystack.charAt(i) - 'A'; 
+        }
+        
+        for(int i = 1; i < length - needleLength + 1; i++) {
+            hash[i] = (hash[i-1] - ((haystack.charAt(i - 1) - 'A'))) + haystack.charAt(i + needleLength - 1) - 'A';
+        }
+        return hash;
+    }
+}
